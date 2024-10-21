@@ -9,33 +9,86 @@ import java.util.Scanner;
 public class Q403 {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-
-        // Criar um objeto Funcionario
         Funcionario funcionario = new Funcionario();
+        boolean continuar = true;
 
-        // Inserir dados do funcionário
-        System.out.print("Digite o nome do funcionário: ");
-        funcionario.setNome(scanner.nextLine());
+        while (continuar) {
+            System.out.println("\nMenu:");
+            System.out.println("1. Inserir dados do funcionário");
+            System.out.println("2. Alterar dados do funcionário");
+            System.out.println("3. Recuperar dados do funcionário");
+            System.out.println("4. Aplicar reajuste no salário");
+            System.out.println("5. Sair");
+            System.out.print("Escolha uma opção: ");
+            int opcao = scanner.nextInt();
+            scanner.nextLine();
 
-        System.out.print("Digite o cargo do funcionário: ");
-        funcionario.setCargo(scanner.nextLine());
+            switch (opcao) {
+                case 1:
+                    // Inserir dados do funcionário
+                    System.out.print("Digite o nome do funcionário: ");
+                    funcionario.setNome(scanner.nextLine());
 
-        System.out.print("Digite o salário atual do funcionário: ");
-        funcionario.setSalario(scanner.nextDouble());
+                    System.out.print("Digite o cargo do funcionário: ");
+                    funcionario.setCargo(scanner.nextLine());
 
-        // Exibir os dados do funcionário
-        System.out.println("\nDados do Funcionário:");
+                    System.out.print("Digite o salário atual do funcionário: ");
+                    funcionario.setSalario(scanner.nextDouble());
+                    break;
+
+                case 2:
+                    // Alterar dados do funcionário
+                    System.out.print("Deseja alterar o nome do funcionário? (s/n): ");
+                    if (scanner.nextLine().equalsIgnoreCase("s")) {
+                        System.out.print("Digite o novo nome: ");
+                        funcionario.setNome(scanner.nextLine());
+                    }
+
+                    System.out.print("Deseja alterar o cargo do funcionário? (s/n): ");
+                    if (scanner.nextLine().equalsIgnoreCase("s")) {
+                        System.out.print("Digite o novo cargo: ");
+                        funcionario.setCargo(scanner.nextLine());
+                    }
+
+                    System.out.print("Deseja alterar o salário do funcionário? (s/n): ");
+                    if (scanner.nextLine().equalsIgnoreCase("s")) {
+                        System.out.print("Digite o novo salário: ");
+                        funcionario.setSalario(scanner.nextDouble());
+                    }
+                    break;
+
+                case 3:
+                    // Recuperar dados do funcionário
+                    System.out.println("\nDados do Funcionário:");
+                    exibirDadosFuncionario(funcionario);
+                    break;
+
+                case 4:
+                    // Aplicar reajuste
+                    System.out.print("Digite o percentual de reajuste: ");
+                    double percentual = scanner.nextDouble();
+                    double novoSalario = funcionario.aplicarReajuste(percentual);
+                    System.out.println("Novo Salário após reajuste: " + novoSalario);
+                    break;
+
+                case 5:
+                    // Sair
+                    continuar = false;
+                    System.out.println("Saindo do programa...");
+                    break;
+
+                default:
+                    System.out.println("Opção inválida! Tente novamente.");
+            }
+        }
+
+        scanner.close();
+    }
+
+    private static void exibirDadosFuncionario(Funcionario funcionario) {
         System.out.println("Nome: " + funcionario.getNome());
         System.out.println("Cargo: " + funcionario.getCargo());
         System.out.println("Salário Atual: " + funcionario.getSalario());
-
-        // Aplicar reajuste
-        System.out.print("Digite o percentual de reajuste: ");
-        double percentual = scanner.nextDouble();
-        double novoSalario = funcionario.aplicarReajuste(percentual);
-        System.out.println("Novo Salário após reajuste: " + novoSalario);
-
-        scanner.close();
     }
 }
 
